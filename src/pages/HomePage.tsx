@@ -90,51 +90,51 @@ export default function HomePage() {
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-        {/* Gradient Blobs */}
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/15 rounded-full blur-[120px] translate-x-1/3 translate-y-1/3" />
-        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+        {/* Premium Background Blurs */}
+        <div className="premium-blur top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-primary/30" />
+        <div className="premium-blur bottom-0 right-0 translate-x-1/2 translate-y-1/2 bg-accent/20" />
+        <div className="premium-blur top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary/10 h-[800px] w-[800px]" />
         
-        {/* Decorative Shapes */}
-        <div className="absolute top-20 right-20 w-20 h-20 border-2 border-primary/20 rounded-2xl rotate-12 animate-float" />
-        <div className="absolute bottom-32 left-20 w-16 h-16 bg-accent/20 rounded-full animate-float animation-delay-400" />
-        <div className="absolute top-1/3 right-1/4 w-12 h-12 border-2 border-accent/30 rounded-full animate-bounce-gentle" />
+        {/* Animated Decorative Shapes */}
+        <div className="absolute top-20 right-[15%] w-24 h-24 border border-primary/20 rounded-3xl rotate-12 animate-float blur-[1px]" />
+        <div className="absolute bottom-32 left-[10%] w-20 h-20 bg-accent/10 rounded-full animate-float animation-delay-400 blur-[2px]" />
+        <div className="absolute top-1/3 left-1/4 w-3 h-3 bg-primary/40 rounded-full animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/3 w-4 h-4 border-2 border-accent/20 rounded-lg animate-spin-slow" />
 
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
+        <div className="container mx-auto px-4 py-24 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
-              <PartyPopper className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-primary/10 mb-10 animate-fade-in shadow-xl shadow-primary/5">
+              <PartyPopper className="w-3.5 h-3.5 text-primary animate-pulse" />
+              <span className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
                 Welcome to Your Campus Hub
               </span>
-              <Sparkles className="w-4 h-4 text-primary" />
+              <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6 animate-fade-in animation-delay-200">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-8 animate-fade-in animation-delay-200 tracking-tight">
               <span className="text-foreground">Your Campus, Your Events,</span>
               <br />
-              <span className="text-gradient">One Platform.</span>
+              <span className="text-primary">One Platform.</span>
             </h1>
 
             {/* Subheading */}
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in animation-delay-400">
+            <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-12 animate-fade-in animation-delay-400 leading-relaxed">
               Discover, register, attend, and get certified — all in one place. 
               For every student, from every branch.
             </p>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in animation-delay-600">
-              <Button size="lg" className="rounded-full px-8 shadow-medium group" asChild>
+              <Button size="lg" className="px-10 h-12 text-sm font-bold group" asChild>
                 <Link to="/events">
                   Explore Events
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="rounded-full px-8" asChild>
+              <Button variant="outline" size="lg" className="rounded-xl px-10 h-12 text-sm font-bold border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 shadow-sm active:scale-95 transition-all" asChild>
                 <Link to="/login">
-                  <Zap className="w-5 h-5 mr-2" />
                   Get Started
                 </Link>
               </Button>
@@ -158,24 +158,29 @@ export default function HomePage() {
           </div>
 
           {/* Floating Event Cards Preview */}
-          <div className="mt-16 relative max-w-4xl mx-auto animate-scale-in animation-delay-600">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="mt-20 relative max-w-5xl mx-auto animate-scale-in animation-delay-600">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { title: "Tech Fest 2025", category: "Technology", color: "bg-primary" },
-                { title: "Cultural Night", category: "Cultural", color: "bg-accent" },
-                { title: "Sports Meet", category: "Sports", color: "bg-success" },
+                { title: "React Workshop 2024", category: "Technical", color: "bg-primary", delay: "0" },
+                { title: "Digital Art Exhibition", category: "Arts", color: "bg-accent", delay: "100" },
+                { title: "AI Hackathon", category: "Innovation", color: "bg-pink-500", delay: "200" },
               ].map((event, index) => (
                 <Card 
                   key={index} 
-                  className="p-4 shadow-medium hover:shadow-large transition-all duration-300 hover:-translate-y-1 bg-card"
+                  className="glass-card p-5 group cursor-default"
                 >
-                  <div className={`w-full h-24 rounded-lg ${event.color}/10 mb-3 flex items-center justify-center`}>
-                    <span className={`text-2xl font-display font-bold ${event.color === 'bg-primary' ? 'text-primary' : event.color === 'bg-accent' ? 'text-accent' : 'text-success'}`}>
+                  <div className={`w-full h-32 rounded-xl ${event.color}/10 mb-4 flex items-center justify-center overflow-hidden relative`}>
+                    <div className={`absolute inset-0 ${event.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                    <span className={`text-4xl font-display font-bold ${event.color.replace('bg-', 'text-')} group-hover:scale-110 transition-transform duration-500`}>
                       {event.title.charAt(0)}
                     </span>
                   </div>
-                  <Badge variant="secondary" className="mb-2">{event.category}</Badge>
-                  <h3 className="font-display font-semibold text-foreground">{event.title}</h3>
+                  <Badge variant="secondary" className="mb-3 bg-white/5 border-white/10 text-xs uppercase tracking-wider">{event.category}</Badge>
+                  <h3 className="font-display font-bold text-lg text-foreground group-hover:text-primary transition-colors">{event.title}</h3>
+                  <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground font-medium">
+                    <span className="flex items-center gap-1"><Users className="w-3 h-3" /> 50+ Joined</span>
+                    <span className="text-primary font-bold">FREE</span>
+                  </div>
                 </Card>
               ))}
             </div>
@@ -194,25 +199,25 @@ export default function HomePage() {
       {/* Problem Statement */}
       <section className="py-24 bg-secondary/30 relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="destructive" className="mb-6">The Challenge</Badge>
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-foreground">
+          <div className="max-w-3xl mx-auto text-center">
+            <Badge variant="destructive" className="mb-6 rounded-lg text-[10px] font-bold tracking-widest uppercase">The Challenge</Badge>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 text-foreground tracking-tight">
               Campus Events Are <span className="text-destructive">Scattered</span>
             </h2>
-            <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-base text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
               Students from all departments face the same problems when trying to participate in campus activities.
             </p>
-            <div className="grid md:grid-cols-2 gap-6 mt-12">
+            <div className="grid md:grid-cols-2 gap-4 mt-12">
               {[
                 { icon: "📍", text: "Event details are scattered across WhatsApp groups" },
                 { icon: "❌", text: "Attendance tracking is unreliable and easily faked" },
                 { icon: "⏰", text: "Certificates are delayed by weeks or months" },
                 { icon: "📊", text: "Event quality is never measured or improved" },
               ].map((problem, index) => (
-                <Card key={index} className="p-6 text-left shadow-soft hover:shadow-medium transition-all duration-300 bg-card">
+                <Card key={index} className="p-6 text-left shadow-soft hover:shadow-medium transition-all duration-300 bg-card border-none">
                   <div className="flex items-start gap-4">
-                    <span className="text-2xl">{problem.icon}</span>
-                    <p className="text-muted-foreground">{problem.text}</p>
+                    <span className="text-xl">{problem.icon}</span>
+                    <p className="text-sm font-medium text-muted-foreground leading-relaxed">{problem.text}</p>
                   </div>
                 </Card>
               ))}
@@ -224,31 +229,30 @@ export default function HomePage() {
       {/* Solution Section */}
       <section className="py-24 relative overflow-hidden bg-background">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">The Solution</Badge>
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-foreground">
+            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 rounded-lg text-[10px] font-bold tracking-widest uppercase">The Solution</Badge>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 text-foreground tracking-tight">
               One Platform. <span className="text-gradient">Endless Possibilities.</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
               EventFlow brings together event discovery, QR-based attendance, 
               automated certificates, and verified feedback for students of all branches.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className="p-6 group hover:shadow-large transition-all duration-300 hover:-translate-y-1 bg-card"
+                className="p-6 group hover:shadow-large transition-all duration-300 hover:-translate-y-1 bg-card border-white/5"
               >
-                <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="w-6 h-6" />
+                <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-display font-semibold mb-2 text-foreground">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <h3 className="text-lg font-display font-bold mb-2 text-foreground tracking-tight">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
               </Card>
             ))}
           </div>
@@ -259,23 +263,23 @@ export default function HomePage() {
       <section className="py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <Badge className="mb-6 bg-accent/10 text-accent border-accent/20">How It Works</Badge>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
+            <Badge className="mb-6 bg-accent/10 text-accent border-accent/20 rounded-lg text-[10px] font-bold tracking-widest uppercase">How It Works</Badge>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground tracking-tight">
               Simple Steps to <span className="text-gradient-warm">Get Started</span>
             </h2>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
               {steps.map((item, index) => (
-                <Card key={index} className="p-6 flex items-start gap-4 group hover:shadow-large transition-all duration-300 hover:-translate-y-1 bg-card">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                    <item.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground" />
+                <Card key={index} className="p-6 flex items-start gap-4 group hover:shadow-large transition-all duration-300 hover:-translate-y-1 bg-card border-none">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-black transition-all duration-300">
+                    <item.icon className="w-5 h-5 text-primary group-hover:text-black" />
                   </div>
                   <div>
-                    <span className="text-xs font-medium text-primary mb-1 block">Step {item.step}</span>
-                    <h3 className="text-lg font-display font-semibold mb-1 text-foreground">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    <span className="text-[10px] font-bold text-primary mb-1 block uppercase tracking-wider">Step {item.step}</span>
+                    <h3 className="text-lg font-display font-bold mb-1 text-foreground tracking-tight">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </Card>
               ))}
@@ -299,7 +303,7 @@ export default function HomePage() {
               Start discovering events, building connections, and earning certificates — all for free.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="rounded-full px-8 shadow-medium" asChild>
+              <Button size="lg" variant="accent" className="rounded-full px-8" asChild>
                 <Link to="/login">
                   Get Started Free
                   <Sparkles className="w-5 h-5 ml-2" />

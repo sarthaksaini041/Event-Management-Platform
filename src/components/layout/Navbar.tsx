@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Zap, Calendar, LayoutDashboard, LogIn, LogOut, Home, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   DropdownMenu,
@@ -34,113 +34,117 @@ export function Navbar() {
   const dashboardLink = isAdmin || isClubAdmin ? "/admin" : "/dashboard";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-medium">
-              <Zap className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-display font-bold text-xl hidden sm:block">
-              <span className="text-gradient">Event</span>
-              <span className="text-foreground">Flow</span>
-            </span>
-          </Link>
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 shadow-2xl transition-all duration-500">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="flex items-center justify-between h-16 md:h-18">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-3 group outline-none">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg shadow-primary/20">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <span className="font-display font-bold text-2xl tracking-tight">
+                <span className="text-primary">Event</span>
+                <span className="text-foreground">Flow</span>
+              </span>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.href;
-              return (
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className={cn(
+                      "px-5 py-2 rounded-xl font-semibold text-sm transition-all duration-300 relative group",
+                      isActive
+                        ? "text-primary bg-primary/10 shadow-[0_0_20px_rgba(var(--primary),0.05)]"
+                        : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              {user && (
                 <Link
-                  key={link.href}
-                  to={link.href}
+                  to={dashboardLink}
                   className={cn(
-                    "px-5 py-2.5 rounded-full font-semibold text-base transition-all duration-300",
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-soft"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                    "px-5 py-2 rounded-xl font-semibold text-sm transition-all duration-300 relative group",
+                    location.pathname === dashboardLink || location.pathname === "/dashboard" || location.pathname === "/admin"
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                   )}
                 >
-                  {link.label}
+                  Dashboard
                 </Link>
-              );
-            })}
-            {user && (
-              <Link
-                to={dashboardLink}
-                className={cn(
-                  "px-5 py-2.5 rounded-full font-semibold text-base transition-all duration-300",
-                  location.pathname === dashboardLink || location.pathname === "/dashboard" || location.pathname === "/admin"
-                    ? "bg-primary text-primary-foreground shadow-soft"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                )}
-              >
-                Dashboard
-              </Link>
-            )}
-          </div>
-
-          {/* Auth Buttons & Theme Toggle */}
-          <div className="hidden md:flex items-center gap-3">
-            <ThemeToggle />
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="lg" className="rounded-full text-base font-semibold">
-                    <User className="w-5 h-5 mr-2" />
-                    {profile?.full_name || "Account"}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem asChild>
-                    <Link to={dashboardLink} className="cursor-pointer">
-                      <LayoutDashboard className="w-4 h-4 mr-2" />
-                      Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive">
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <>
-                <Button variant="ghost" size="lg" className="rounded-full text-base font-semibold" asChild>
-                  <Link to="/login">
-                    <LogIn className="w-5 h-5 mr-2" />
-                    Login
-                  </Link>
-                </Button>
-                <Button size="lg" className="rounded-full shadow-medium text-base font-semibold px-6" asChild>
-                  <Link to="/register">Get Started</Link>
-                </Button>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Button & Theme Toggle */}
-          <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-secondary transition-colors"
-            >
-              {isOpen ? (
-                <X className="w-6 h-6 text-foreground" />
-              ) : (
-                <Menu className="w-6 h-6 text-foreground" />
               )}
-            </button>
-          </div>
-        </div>
+            </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
+            {/* Auth Buttons & Theme Toggle */}
+            <div className="hidden md:flex items-center gap-6">
+              <ThemeToggle />
+              <div className="h-6 w-[1px] bg-white/10" />
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="rounded-xl h-10 px-4 text-sm font-semibold bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 gap-3 group">
+                       <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all">
+                        <User className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="max-w-[100px] truncate">{profile?.full_name || "Account"}</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 glass border-white/10 p-2 rounded-2xl shadow-2xl">
+                    <DropdownMenuItem asChild>
+                      <Link to={dashboardLink} className="cursor-pointer rounded-xl py-3 px-4 font-semibold hover:bg-white/5 transition-all">
+                        <LayoutDashboard className="w-4 h-4 mr-3 text-primary" />
+                        Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-white/10 my-1" />
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer rounded-xl py-3 px-4 font-semibold text-destructive hover:bg-destructive/5 transition-all">
+                      <LogOut className="w-4 h-4 mr-3" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <div className="flex items-center gap-4">
+                  <Button variant="ghost" className="rounded-xl h-10 px-5 text-sm font-semibold hover:bg-white/10 transition-all text-muted-foreground hover:text-foreground" asChild>
+                    <Link to="/login">Log in</Link>
+                  </Button>
+                  <Button className="h-10 px-6 text-sm font-bold" asChild>
+                    <Link to="/register">Sign up</Link>
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Menu Button & Theme Toggle */}
+            <div className="md:hidden flex items-center gap-3">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all"
+              >
+                {isOpen ? (
+                  <X className="w-5 h-5 text-foreground" />
+                ) : (
+                  <Menu className="w-5 h-5 text-foreground" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          <div 
+            className={cn(
+              "md:hidden overflow-hidden transition-all duration-500 ease-in-out",
+              isOpen ? "max-h-[500px] opacity-100 py-6 border-t border-white/10" : "max-h-0 opacity-0"
+            )}
+          >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.href;
@@ -150,10 +154,10 @@ export function Navbar() {
                     to={link.href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "px-4 py-3 rounded-lg font-semibold text-base flex items-center gap-3 transition-all duration-300",
+                      "px-5 py-4 rounded-2xl font-bold text-base flex items-center gap-4 transition-all duration-300",
                       isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                        ? "bg-primary text-white shadow-lg shadow-primary/20"
+                        : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                     )}
                   >
                     <link.icon className="w-5 h-5" />
@@ -166,41 +170,36 @@ export function Navbar() {
                   to={dashboardLink}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    "px-4 py-3 rounded-lg font-semibold text-base flex items-center gap-3 transition-all duration-300",
+                    "px-5 py-4 rounded-2xl font-bold text-base flex items-center gap-4 transition-all duration-300",
                     location.pathname === dashboardLink
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                      ? "bg-primary text-white shadow-lg shadow-primary/20"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                   )}
                 >
                   <LayoutDashboard className="w-5 h-5" />
                   Dashboard
                 </Link>
               )}
-              <div className="flex gap-2 mt-4 pt-4 border-t border-border">
+              <div className="flex gap-3 mt-6 pt-6 border-t border-white/10">
                 {user ? (
-                  <Button variant="ghost" size="lg" className="flex-1 rounded-full" onClick={handleSignOut}>
+                  <Button variant="ghost" className="flex-1 h-12 rounded-xl font-semibold bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all" onClick={handleSignOut}>
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
                   </Button>
                 ) : (
                   <>
-                    <Button variant="ghost" size="lg" className="flex-1 rounded-full" asChild>
-                      <Link to="/login" onClick={() => setIsOpen(false)}>
-                        Login
-                      </Link>
+                    <Button variant="ghost" className="flex-1 h-12 rounded-xl font-semibold bg-white/5 hover:bg-white/10 transition-all text-muted-foreground hover:text-foreground" asChild>
+                      <Link to="/login" onClick={() => setIsOpen(false)}>Log in</Link>
                     </Button>
-                    <Button size="lg" className="flex-1 rounded-full" asChild>
-                      <Link to="/register" onClick={() => setIsOpen(false)}>
-                        Get Started
-                      </Link>
+                    <Button className="flex-1 h-12 font-bold" asChild>
+                      <Link to="/register" onClick={() => setIsOpen(false)}>Sign up</Link>
                     </Button>
                   </>
                 )}
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
     </nav>
   );
 }

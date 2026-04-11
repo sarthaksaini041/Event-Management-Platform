@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2 } from "lucide-react";
 import { useEvents } from "@/hooks/useEvents";
-import { EventCard } from "@/components/events/EventCard";
+import { EventCard } from "@/components/features/events/EventCard";
 
 const categories = ["All", "Technical", "Workshop", "Cultural", "Business", "Creative"];
 
@@ -26,14 +26,14 @@ export default function EventsPage() {
   return (
     <Layout>
       {/* Header */}
-      <section className="py-16 bg-gradient-to-b from-primary/10 to-transparent">
+      <section className="py-20 bg-gradient-to-b from-primary/10 to-transparent">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">Events</Badge>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
+            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 rounded-lg text-[10px] font-bold tracking-widest uppercase">Events</Badge>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 tracking-tight">
               Upcoming <span className="text-gradient">Events</span>
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               Discover and register for verified college events.
             </p>
           </div>

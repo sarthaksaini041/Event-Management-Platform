@@ -37,9 +37,28 @@ A modern, full-stack web application for managing campus events, club activities
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd eventflow
-🎨 Features Overview
+   git clone https://github.com/naitik149/Event-Management-Platform.git
+   cd Event-Management-Platform
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file in the root directory and add your Supabase credentials:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+## 🎨 Features Overview
 Event Categories
 Technical (hackathons, coding workshops)
 Cultural (festivals, performances)

@@ -1,4 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 import { Layout } from "@/components/layout/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -231,23 +232,23 @@ export default function EventDetailsPage() {
                       <span className="text-muted-foreground">Seats Filled</span>
                       <span className="text-primary font-display">{fillPercentage}%</span>
                     </div>
-                    <div className="h-2 rounded-full bg-secondary overflow-hidden">
+                    <div className="h-2 rounded-full bg-secondary overflow-hidden p-[1px] border border-border/50">
                       <div
-                        className="h-full bg-primary rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(var(--primary),0.3)]"
                         style={{ width: `${Math.min(fillPercentage, 100)}%` }}
                       />
                     </div>
                   </div>
 
                   {isCheckingRegistration ? (
-                    <Button className="w-full mb-4" disabled>
+                    <Button className="w-full h-12 mb-4" disabled>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                       Checking...
                     </Button>
                   ) : isRegistered ? (
                     <Button
                       variant="outline"
-                      className="w-full mb-4"
+                      className="w-full h-12 mb-4 font-bold border-primary/20 text-primary hover:bg-primary/5"
                       onClick={handleCancelRegistration}
                       disabled={cancelMutation.isPending}
                     >
@@ -260,7 +261,7 @@ export default function EventDetailsPage() {
                     </Button>
                   ) : (
                     <Button
-                      className="w-full mb-4"
+                      className="w-full h-12 mb-4 font-bold"
                       onClick={handleRegister}
                       disabled={event.status !== "open" || isFull || registerMutation.isPending}
                     >

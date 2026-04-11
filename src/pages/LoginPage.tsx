@@ -66,48 +66,47 @@ export default function LoginPage() {
       <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-md mx-auto">
-            {/* Logo */}
-            <div className="text-center mb-8">
-              <Link to="/" className="inline-flex items-center gap-3 group">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-soft">
-                  <Zap className="w-6 h-6 text-white" />
+            <div className="text-center mb-10">
+              <Link to="/" className="flex flex-col items-center gap-4 group">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-xl shadow-primary/20">
+                  <Zap className="w-7 h-7 text-white" />
                 </div>
-                <span className="font-display font-bold text-xl">
-                  <span className="text-gradient">Event</span>
+                <span className="font-display font-bold text-3xl tracking-tight">
+                  <span className="text-primary">Event</span>
                   <span className="text-foreground">Flow</span>
                 </span>
               </Link>
             </div>
 
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden glass border-white/10 shadow-2xl rounded-3xl">
               <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="w-full rounded-none bg-secondary p-0">
+                <TabsList className="w-full rounded-none bg-white/5 border-b border-white/5 p-0 h-14">
                   <TabsTrigger
                     value="login"
-                    className="flex-1 rounded-none py-4 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+                    className="flex-1 rounded-none h-full font-bold text-sm tracking-wide data-[state=active]:bg-primary/10 data-[state=active]:text-primary transition-all"
                   >
-                    Login
+                    Log in
                   </TabsTrigger>
                   <TabsTrigger
                     value="register"
-                    className="flex-1 rounded-none py-4 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+                    className="flex-1 rounded-none h-full font-bold text-sm tracking-wide data-[state=active]:bg-primary/10 data-[state=active]:text-primary transition-all"
                   >
-                    Register
+                    SIGN UP
                   </TabsTrigger>
                 </TabsList>
 
                 {/* Login Form */}
-                <TabsContent value="login" className="mt-0">
+                <TabsContent value="login" className="mt-0 p-2">
                   <form onSubmit={handleLogin}>
-                    <CardHeader className="text-center">
-                      <CardTitle className="text-2xl">Welcome Back</CardTitle>
-                      <CardDescription>
+                    <CardHeader className="text-center pb-2">
+                      <CardTitle className="text-2xl font-bold tracking-tight">Welcome Back</CardTitle>
+                      <CardDescription className="text-sm">
                         Access your events, attendance, and certificates.
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-4 pt-4">
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Email</Label>
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <Input
@@ -116,13 +115,13 @@ export default function LoginPage() {
                             placeholder="you@college.edu"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="pl-10 bg-secondary border-border focus:border-primary"
+                            className="h-12 pl-10 bg-white/5 border-white/10 focus:border-primary rounded-xl"
                             required
                           />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="password">Password</Label>
+                        <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Password</Label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <Input
@@ -131,16 +130,16 @@ export default function LoginPage() {
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="pl-10 bg-secondary border-border focus:border-primary"
+                            className="h-12 pl-10 bg-white/5 border-white/10 focus:border-primary rounded-xl"
                             required
                           />
                         </div>
                       </div>
-                      <Button className="w-full" type="submit" disabled={isLoading}>
+                      <Button className="w-full h-12 font-bold mt-4" type="submit" disabled={isLoading}>
                         {isLoading ? (
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         ) : null}
-                        Login
+                        Log in
                         {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
                       </Button>
                     </CardContent>
@@ -148,17 +147,17 @@ export default function LoginPage() {
                 </TabsContent>
 
                 {/* Register Form */}
-                <TabsContent value="register" className="mt-0">
+                <TabsContent value="register" className="mt-0 p-2">
                   <form onSubmit={handleRegister}>
-                    <CardHeader className="text-center">
-                      <CardTitle className="text-2xl">Create Your Account</CardTitle>
-                      <CardDescription>
+                    <CardHeader className="text-center pb-2">
+                      <CardTitle className="text-2xl font-bold tracking-tight">Create Your Account</CardTitle>
+                      <CardDescription className="text-sm">
                         Join your campus event ecosystem.
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-4 pt-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
+                        <Label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</Label>
                         <div className="relative">
                           <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <Input
@@ -167,13 +166,13 @@ export default function LoginPage() {
                             placeholder="John Doe"
                             value={fullName}
                             onChange={(e) => setFullName(e.target.value)}
-                            className="pl-10 bg-secondary border-border focus:border-primary"
+                            className="h-12 pl-10 bg-white/5 border-white/10 focus:border-primary rounded-xl"
                             required
                           />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="register-email">Email</Label>
+                        <Label htmlFor="register-email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Email</Label>
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <Input
@@ -182,13 +181,13 @@ export default function LoginPage() {
                             placeholder="you@college.edu"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="pl-10 bg-secondary border-border focus:border-primary"
+                            className="h-12 pl-10 bg-white/5 border-white/10 focus:border-primary rounded-xl"
                             required
                           />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="register-password">Password</Label>
+                        <Label htmlFor="register-password" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Password</Label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <Input
@@ -197,20 +196,20 @@ export default function LoginPage() {
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="pl-10 bg-secondary border-border focus:border-primary"
+                            className="h-12 pl-10 bg-white/5 border-white/10 focus:border-primary rounded-xl"
                             required
                             minLength={6}
                           />
                         </div>
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        By creating an account, you'll start as a student. Contact admin for club organizer access.
+                      <p className="text-[10px] text-muted-foreground text-center italic mt-2">
+                        By creating an account, you'll start as a student. Contact admin for organizer access.
                       </p>
-                      <Button className="w-full" type="submit" disabled={isLoading}>
+                      <Button className="w-full h-12 font-bold mt-4" type="submit" disabled={isLoading}>
                         {isLoading ? (
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         ) : null}
-                        Create Account
+                        Sign up
                         {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
                       </Button>
                     </CardContent>
