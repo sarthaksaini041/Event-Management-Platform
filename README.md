@@ -37,7 +37,7 @@ A modern, full-stack web application for managing campus events, club activities
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/naitik149/Event-Management-Platform.git
+   git clone https://github.com/sarthaksaini041/Event-Management-Platform.git
    cd Event-Management-Platform
    ```
 
