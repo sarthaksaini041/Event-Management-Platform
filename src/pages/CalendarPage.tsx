@@ -66,17 +66,20 @@ export default function CalendarPage() {
   return (
     <Layout>
       {/* Header */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="premium-blur top-0 left-1/2 -translate-x-1/2 bg-primary/10" />
+      <section className="relative pt-24 pb-16 overflow-hidden bg-background">
+        <div className="premium-blur w-[500px] h-[500px] bg-primary/10 top-0 left-1/2 -translate-x-1/2 -translate-y-1/3" aria-hidden />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <Badge className="mb-6 glass border-primary/20 text-primary py-1.5 px-4 rounded-full uppercase tracking-widest text-[10px] font-bold">
+            <Badge className="mb-5 bg-primary/8 text-primary border-primary/15 rounded-lg text-[10px] font-semibold tracking-widest uppercase">
               Dynamic Calendar
             </Badge>
-            <h1 className="text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-5"
+              style={{ letterSpacing: "-0.02em" }}
+            >
               Event <span className="text-gradient">Schedule</span>
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               Plan your campus life with precision. Discover workshops, hackathons, and social meets — all perfectly synced.
             </p>
           </div>
@@ -86,40 +89,44 @@ export default function CalendarPage() {
       {/* Calendar */}
       <section className="py-12 relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto glass rounded-[2.5rem] border border-white/10 shadow-3xl overflow-hidden transition-all duration-500">
-            {/* Calendar Header */}
-            <div className="bg-white/5 border-b border-white/10 p-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
-                   <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <CalendarIcon className="w-6 h-6 text-primary" />
+          <div className="max-w-6xl mx-auto glass rounded-2xl md:rounded-[2.5rem] border border-white/10 overflow-hidden">
+            <div className="border-b border-white/10 px-4 py-4 md:px-8 md:py-6">
+              <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-primary/8 flex items-center justify-center">
+                      <CalendarIcon className="w-4 h-4 text-primary" aria-hidden />
+                    </div>
+                    <h2
+                      className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground"
+                      style={{ letterSpacing: "-0.02em" }}
+                    >
+                      {format(currentDate, "MMMM yyyy")}
+                    </h2>
                   </div>
-                  <h2 className="text-3xl font-display font-bold tracking-tight text-foreground">
-                    {format(currentDate, "MMMM yyyy")}
-                  </h2>
-                </div>
-                <div className="flex items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/10">
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="w-11 h-11 rounded-xl hover:bg-white/10 transition-all text-muted-foreground hover:text-primary"
+                <div className="flex items-center gap-1 bg-secondary/50 p-1 rounded-xl border border-border/40">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="w-9 h-9 rounded-lg hover:bg-foreground/5 transition-all duration-200 text-muted-foreground hover:text-primary"
                     onClick={() => navigateMonth(-1)}
+                    aria-label="Previous month"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4" />
                   </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="w-11 h-11 rounded-xl hover:bg-white/10 transition-all text-muted-foreground hover:text-primary"
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="w-9 h-9 rounded-lg hover:bg-foreground/5 transition-all duration-200 text-muted-foreground hover:text-primary"
                     onClick={() => navigateMonth(1)}
+                    aria-label="Next month"
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
             </div>
 
-            <div className="p-4 md:p-10">
+            <div className="p-2 sm:p-4 md:p-8 lg:p-10">
               {isLoading ? (
                 <div className="flex flex-col items-center justify-center py-32 gap-4">
                   <Loader2 className="w-12 h-12 animate-spin text-primary" />
@@ -127,17 +134,18 @@ export default function CalendarPage() {
                 </div>
               ) : (
                 <>
-                  {/* Days of Week */}
-                  <div className="grid grid-cols-7 mb-6">
+                  {/* Days of Week header */}
+                  <div className="grid grid-cols-7 mb-3 md:mb-6">
                     {daysOfWeek.map((day) => (
-                      <div key={day} className="text-center font-bold text-xs uppercase tracking-[0.2em] text-muted-foreground/60">
-                        {day}
+                      <div key={day} className="text-center font-semibold text-[9px] sm:text-xs uppercase tracking-widest text-muted-foreground/60">
+                        <span className="sm:hidden">{day.charAt(0)}</span>
+                        <span className="hidden sm:inline">{day}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Calendar Grid */}
-                  <div className="grid grid-cols-7 gap-3">
+                  <div className="grid grid-cols-7 gap-1 sm:gap-2 md:gap-3">
                     {allDays.map((day, index) => {
                       const dayEvents = getEventsForDate(day.date);
                       const isTodayDate = isToday(day.date);
@@ -146,50 +154,56 @@ export default function CalendarPage() {
                         <div
                           key={index}
                           className={cn(
-                            "min-h-[140px] p-3 rounded-2xl border transition-all duration-500 group relative",
+                            "min-h-[52px] sm:min-h-[90px] md:min-h-[120px] p-1 sm:p-2 md:p-3 rounded-xl md:rounded-2xl border transition-all duration-200 group relative",
                             day.isCurrentMonth
                               ? "glass-card border-white/5 hover:border-primary/30"
-                              : "bg-white/2 border-transparent opacity-30",
-                            isTodayDate && "border-primary shadow-[0_0_20px_rgba(var(--primary),0.15)] ring-1 ring-primary/20",
+                              : "bg-secondary/20 border-transparent opacity-40",
+                            isTodayDate && "border-primary ring-1 ring-primary/20",
                             dayEvents.length > 0 && day.isCurrentMonth && "bg-primary/[0.02]"
                           )}
                         >
+                          {/* Day number */}
                           <div
                             className={cn(
-                              "text-sm font-bold mb-3 transition-colors",
+                              "text-xs font-semibold mb-1 transition-colors",
                               day.isCurrentMonth ? "text-foreground" : "text-muted-foreground",
                               isTodayDate && "text-primary"
                             )}
                           >
                             <span className={cn(
-                              "inline-flex items-center justify-center w-7 h-7 rounded-lg",
-                              isTodayDate && "bg-primary text-white shadow-lg shadow-primary/30"
+                              "inline-flex items-center justify-center w-6 h-6 rounded-md text-xs",
+                              isTodayDate && "bg-primary text-white shadow-sm shadow-primary/30"
                             )}>
                               {format(day.date, "d")}
                             </span>
                           </div>
 
-                          <div className="space-y-1.5">
+                          {/* Events — visible on sm+ only as pills, on mobile just dot */}
+                          <div className="hidden sm:block space-y-1">
                             {dayEvents.slice(0, 2).map((event) => (
                               <Link
                                 key={event.id}
                                 to={`/events/${event.id}`}
-                                className="block text-[10px] sm:text-xs p-2 rounded-xl bg-primary/10 text-primary font-bold truncate transition-all hover:bg-primary/20 border border-primary/5 active:scale-95"
+                                className="block text-[10px] px-1.5 py-0.5 rounded-md bg-primary/10 text-primary font-semibold truncate transition-all hover:bg-primary/20 border border-primary/10"
                                 title={event.title}
                               >
                                 {event.title}
                               </Link>
                             ))}
                             {dayEvents.length > 2 && (
-                              <div className="text-[10px] font-bold text-muted-foreground px-2 pt-1 uppercase tracking-wider">
-                                +{dayEvents.length - 2} Event{dayEvents.length > 3 ? 's' : ''}
+                              <div className="text-[9px] font-semibold text-muted-foreground px-1 uppercase tracking-wider">
+                                +{dayEvents.length - 2} more
                               </div>
                             )}
                           </div>
-                          
-                          {/* Subtle active glow for days with events */}
+
+                          {/* On mobile: just a dot indicator if there are events */}
                           {dayEvents.length > 0 && day.isCurrentMonth && (
-                            <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                            <div className="sm:hidden absolute bottom-1.5 left-1/2 -translate-x-1/2 flex gap-0.5">
+                              {Array.from({ length: Math.min(dayEvents.length, 3) }).map((_, i) => (
+                                <div key={i} className="w-1 h-1 rounded-full bg-primary" />
+                              ))}
+                            </div>
                           )}
                         </div>
                       );
@@ -203,8 +217,13 @@ export default function CalendarPage() {
           {/* Featured Upcoming Section */}
           {upcomingEvents.length > 0 && (
             <div className="max-w-6xl mx-auto mt-20">
-              <div className="flex items-center justify-between mb-8 px-4">
-                <h2 className="text-3xl font-display font-bold tracking-tight">Key Events <span className="text-primary opacity-50">This Month</span></h2>
+              <div className="flex items-center justify-between mb-6 px-1">
+                <h2
+                  className="text-2xl font-semibold text-foreground"
+                  style={{ letterSpacing: "-0.02em" }}
+                >
+                  Key Events <span className="text-primary/50">This Month</span>
+                </h2>
                 <Button variant="link" className="text-primary font-bold group" asChild>
                   <Link to="/events">
                     View all <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-all" />
@@ -220,8 +239,13 @@ export default function CalendarPage() {
                           {event.image_emoji || "📅"}
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-display font-bold text-lg mb-1 group-hover:text-primary transition-colors text-foreground">{event.title}</h3>
-                          <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-widest bg-white/5 border-white/10">{event.club_name}</Badge>
+                          <h3
+                            className="font-semibold text-base mb-1 group-hover:text-primary transition-colors duration-200 text-foreground"
+                            style={{ letterSpacing: "-0.01em" }}
+                          >
+                            {event.title}
+                          </h3>
+                          <Badge variant="outline" className="text-[10px] uppercase font-semibold tracking-widest border-border/50">{event.club_name}</Badge>
                         </div>
                       </div>
                       <div className="mt-auto pt-4 flex items-center justify-between border-t border-white/5">

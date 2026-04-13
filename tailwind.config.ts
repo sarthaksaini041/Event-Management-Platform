@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["var(--font-display)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
+        // Both resolve to Inter — var(--font-inter) set in index.css
+        display: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        body:    ["Inter", "system-ui", "-apple-system", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -85,44 +86,29 @@ export default {
           to: { height: "0" },
         },
         "fade-in": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "0%":   { opacity: "0", transform: "translateY(16px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "fade-in-left": {
-          "0%": { opacity: "0", transform: "translateX(-20px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        "fade-in-right": {
-          "0%": { opacity: "0", transform: "translateX(20px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
         "scale-in": {
-          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "0%":   { opacity: "0", transform: "scale(0.96)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
         "float": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        "slide-up": {
-          "0%": { opacity: "0", transform: "translateY(100%)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%":      { transform: "translateY(-8px)" },
         },
         "bounce-gentle": {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-5px)" },
+          "50%":      { transform: "translateY(-4px)" },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.6s ease-out forwards",
-        "fade-in-left": "fade-in-left 0.6s ease-out forwards",
-        "fade-in-right": "fade-in-right 0.6s ease-out forwards",
-        "scale-in": "scale-in 0.4s ease-out forwards",
-        "float": "float 3s ease-in-out infinite",
-        "slide-up": "slide-up 0.5s ease-out forwards",
-        "bounce-gentle": "bounce-gentle 2s ease-in-out infinite",
+        "accordion-down":  "accordion-down 0.2s ease-out",
+        "accordion-up":    "accordion-up 0.2s ease-out",
+        "fade-in":         "fade-in 0.5s ease-out forwards",
+        "scale-in":        "scale-in 0.4s ease-out forwards",
+        "float":           "float 5s ease-in-out infinite",
+        "bounce-gentle":   "bounce-gentle 2s ease-in-out infinite",
       },
     },
   },

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Zap, Calendar, LayoutDashboard, LogIn, LogOut, Home, User } from "lucide-react";
+import { Menu, X, Zap, Calendar, LayoutDashboard, LogOut, Home, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
@@ -34,172 +34,212 @@ export function Navbar() {
   const dashboardLink = isAdmin || isClubAdmin ? "/admin" : "/dashboard";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 shadow-2xl transition-all duration-500">
+    <nav
+      style={{
+        background: "var(--glass-bg-light)",
+        backdropFilter: "var(--glass-blur)",
+        WebkitBackdropFilter: "var(--glass-blur)",
+        borderBottom: "var(--glass-border)",
+        boxShadow: "var(--glass-shadow)",
+      }}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-200"
+    >
       <div className="container mx-auto px-4 md:px-8">
-        <div className="flex items-center justify-between h-16 md:h-18">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 group outline-none">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg shadow-primary/20">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
-              <span className="font-display font-bold text-2xl tracking-tight">
-                <span className="text-primary">Event</span>
-                <span className="text-foreground">Flow</span>
-              </span>
-            </Link>
+        <div className="flex items-center justify-between h-16">
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) => {
-                const isActive = location.pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    className={cn(
-                      "px-5 py-2 rounded-xl font-semibold text-sm transition-all duration-300 relative group",
-                      isActive
-                        ? "text-primary bg-primary/10 shadow-[0_0_20px_rgba(var(--primary),0.05)]"
-                        : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              {user && (
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2.5 group outline-none">
+            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-md shadow-primary/25">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-semibold text-xl tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+              <span className="text-primary">Event</span>
+              <span className="text-foreground">Flow</span>
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.href;
+              return (
                 <Link
-                  to={dashboardLink}
+                  key={link.href}
+                  to={link.href}
                   className={cn(
-                    "px-5 py-2 rounded-xl font-semibold text-sm transition-all duration-300 relative group",
-                    location.pathname === dashboardLink || location.pathname === "/dashboard" || location.pathname === "/admin"
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                    "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                    "min-h-[44px] flex items-center",
+                    isActive
+                      ? "text-primary bg-primary/8 font-semibold"
+                      : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                   )}
                 >
-                  Dashboard
+                  {link.label}
                 </Link>
-              )}
-            </div>
-
-            {/* Auth Buttons & Theme Toggle */}
-            <div className="hidden md:flex items-center gap-6">
-              <ThemeToggle />
-              <div className="h-6 w-[1px] bg-white/10" />
-              {user ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="rounded-xl h-10 px-4 text-sm font-semibold bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 gap-3 group">
-                       <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all">
-                        <User className="w-3.5 h-3.5" />
-                      </div>
-                      <span className="max-w-[100px] truncate">{profile?.full_name || "Account"}</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 glass border-white/10 p-2 rounded-2xl shadow-2xl">
-                    <DropdownMenuItem asChild>
-                      <Link to={dashboardLink} className="cursor-pointer rounded-xl py-3 px-4 font-semibold hover:bg-white/5 transition-all">
-                        <LayoutDashboard className="w-4 h-4 mr-3 text-primary" />
-                        Dashboard
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-white/10 my-1" />
-                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer rounded-xl py-3 px-4 font-semibold text-destructive hover:bg-destructive/5 transition-all">
-                      <LogOut className="w-4 h-4 mr-3" />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <div className="flex items-center gap-4">
-                  <Button variant="ghost" className="rounded-xl h-10 px-5 text-sm font-semibold hover:bg-white/10 transition-all text-muted-foreground hover:text-foreground" asChild>
-                    <Link to="/login">Log in</Link>
-                  </Button>
-                  <Button className="h-10 px-6 text-sm font-bold" asChild>
-                    <Link to="/register">Sign up</Link>
-                  </Button>
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Menu Button & Theme Toggle */}
-            <div className="md:hidden flex items-center gap-3">
-              <ThemeToggle />
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all"
-              >
-                {isOpen ? (
-                  <X className="w-5 h-5 text-foreground" />
-                ) : (
-                  <Menu className="w-5 h-5 text-foreground" />
+              );
+            })}
+            {user && (
+              <Link
+                to={dashboardLink}
+                className={cn(
+                  "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                  "min-h-[44px] flex items-center",
+                  location.pathname === dashboardLink || location.pathname === "/dashboard" || location.pathname === "/admin"
+                    ? "text-primary bg-primary/8 font-semibold"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                 )}
-              </button>
-            </div>
+              >
+                Dashboard
+              </Link>
+            )}
           </div>
 
-          {/* Mobile Navigation */}
-          <div 
-            className={cn(
-              "md:hidden overflow-hidden transition-all duration-500 ease-in-out",
-              isOpen ? "max-h-[500px] opacity-100 py-6 border-t border-white/10" : "max-h-0 opacity-0"
-            )}
-          >
-            <div className="flex flex-col gap-2">
-              {navLinks.map((link) => {
-                const isActive = location.pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      "px-5 py-4 rounded-2xl font-bold text-base flex items-center gap-4 transition-all duration-300",
-                      isActive
-                        ? "bg-primary text-white shadow-lg shadow-primary/20"
-                        : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-                    )}
+          {/* Auth + Theme — Desktop */}
+          <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
+            <div className="h-5 w-px bg-border" />
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="rounded-lg h-10 px-3 text-sm font-medium border border-border/50 hover:bg-foreground/5 transition-all duration-200 gap-2.5"
                   >
-                    <link.icon className="w-5 h-5" />
-                    {link.label}
-                  </Link>
-                );
-              })}
-              {user && (
+                    <div className="w-6 h-6 rounded-md bg-primary/10 flex items-center justify-center text-primary">
+                      <User className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="max-w-[100px] truncate">{profile?.full_name || "Account"}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="w-52 p-1.5 rounded-xl border-border/50"
+                  style={{
+                    background: "var(--glass-bg-light)",
+                    backdropFilter: "var(--glass-blur)",
+                    WebkitBackdropFilter: "var(--glass-blur)",
+                  }}
+                >
+                  <DropdownMenuItem asChild>
+                    <Link to={dashboardLink} className="cursor-pointer rounded-lg py-2.5 px-3 font-medium text-sm">
+                      <LayoutDashboard className="w-4 h-4 mr-2.5 text-primary" />
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="my-1" />
+                  <DropdownMenuItem
+                    onClick={handleSignOut}
+                    className="cursor-pointer rounded-lg py-2.5 px-3 font-medium text-sm text-destructive focus:text-destructive"
+                  >
+                    <LogOut className="w-4 h-4 mr-2.5" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  className="h-10 px-4 text-sm font-medium rounded-lg hover:bg-foreground/5 transition-all duration-200"
+                  asChild
+                >
+                  <Link to="/login">Log in</Link>
+                </Button>
+                <Button
+                  className="h-10 px-5 text-sm font-semibold rounded-lg transition-all duration-200 shadow-sm shadow-primary/20"
+                  asChild
+                >
+                  <Link to="/register">Sign up</Link>
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile — Theme + Hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              id="mobile-menu-toggle"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              className="w-10 h-10 rounded-lg border border-border/50 flex items-center justify-center hover:bg-foreground/5 transition-all duration-200"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div
+          className={cn(
+            "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
+            isOpen ? "max-h-[480px] opacity-100 pb-5 border-t border-border/40 pt-3" : "max-h-0 opacity-0"
+          )}
+        >
+          <div className="flex flex-col gap-1">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.href;
+              return (
                 <Link
-                  to={dashboardLink}
+                  key={link.href}
+                  to={link.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    "px-5 py-4 rounded-2xl font-bold text-base flex items-center gap-4 transition-all duration-300",
-                    location.pathname === dashboardLink
-                      ? "bg-primary text-white shadow-lg shadow-primary/20"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                    "px-4 py-3.5 rounded-xl text-base font-medium flex items-center gap-3 transition-all duration-200 min-h-[52px]",
+                    isActive
+                      ? "bg-primary text-white font-semibold shadow-sm shadow-primary/25"
+                      : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                   )}
                 >
-                  <LayoutDashboard className="w-5 h-5" />
-                  Dashboard
+                  <link.icon className="w-5 h-5 shrink-0" />
+                  {link.label}
                 </Link>
-              )}
-              <div className="flex gap-3 mt-6 pt-6 border-t border-white/10">
-                {user ? (
-                  <Button variant="ghost" className="flex-1 h-12 rounded-xl font-semibold bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all" onClick={handleSignOut}>
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sign Out
-                  </Button>
-                ) : (
-                  <>
-                    <Button variant="ghost" className="flex-1 h-12 rounded-xl font-semibold bg-white/5 hover:bg-white/10 transition-all text-muted-foreground hover:text-foreground" asChild>
-                      <Link to="/login" onClick={() => setIsOpen(false)}>Log in</Link>
-                    </Button>
-                    <Button className="flex-1 h-12 font-bold" asChild>
-                      <Link to="/register" onClick={() => setIsOpen(false)}>Sign up</Link>
-                    </Button>
-                  </>
+              );
+            })}
+            {user && (
+              <Link
+                to={dashboardLink}
+                onClick={() => setIsOpen(false)}
+                className={cn(
+                  "px-4 py-3.5 rounded-xl text-base font-medium flex items-center gap-3 transition-all duration-200 min-h-[52px]",
+                  location.pathname === dashboardLink
+                    ? "bg-primary text-white font-semibold shadow-sm shadow-primary/25"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                 )}
-              </div>
+              >
+                <LayoutDashboard className="w-5 h-5 shrink-0" />
+                Dashboard
+              </Link>
+            )}
+            <div className="flex gap-2 mt-4 pt-4 border-t border-border/40">
+              {user ? (
+                <Button
+                  variant="ghost"
+                  className="flex-1 h-12 rounded-xl font-semibold text-destructive hover:bg-destructive/8 transition-all duration-200"
+                  onClick={handleSignOut}
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    variant="outline"
+                    className="flex-1 h-12 rounded-xl font-medium transition-all duration-200"
+                    asChild
+                  >
+                    <Link to="/login" onClick={() => setIsOpen(false)}>Log in</Link>
+                  </Button>
+                  <Button className="flex-1 h-12 font-semibold rounded-xl shadow-sm transition-all duration-200" asChild>
+                    <Link to="/register" onClick={() => setIsOpen(false)}>Sign up</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
+      </div>
     </nav>
   );
 }
